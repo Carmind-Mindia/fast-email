@@ -1,0 +1,63 @@
+name: Deploy to dev
+on: [push]
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    environment: Dev
+    steps:
+      - name: Clone repo
+        uses: appleboy/ssh-action@master
+        continue-on-error: true
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ${{ secrets.PATH }}
+            git clone https://github.com/Fonzeca/FastEmail.git
+      - name: Actualizar repo
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ${{ secrets.PATH }}
+            cd ./FastEmail
+            git reset --hard && git pull origin
+      - name: Build docker image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ${{ secrets.PATH }}
+            cd ./FastEmail
+            docker build -t ${{ secrets.DOCKER_NAME }} .
+      - name: Stop running container
+        uses: appleboy/ssh-action@master
+        continue-on-error: true
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script_stop: false
+          script: |
+            docker container stop ${{ secrets.DOCKER_NAME }}
+            docker container rm ${{ secrets.DOCKER_NAME }}
+      - name: Run container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: docker run -d --name ${{ secrets.DOCKER_NAME }} -p 5896:5896 --network="host" ${{ secrets.DOCKER_NAME }}
+            
+
