@@ -1,9 +1,10 @@
 package service
 
 import (
-	"fast-email/src/manager"
-	"fast-email/src/model"
 	"net/http"
+
+	"github.com/Fonzeca/FastEmail/src/manager"
+	"github.com/Fonzeca/FastEmail/src/model"
 
 	"github.com/labstack/echo"
 )

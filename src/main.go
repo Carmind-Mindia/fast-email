@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fast-email/src/manager"
-	"fast-email/src/service"
+	"github.com/Fonzeca/FastEmail/src/manager"
+	"github.com/Fonzeca/FastEmail/src/service"
 
 	"github.com/labstack/echo"
 )

@@ -1,4 +1,4 @@
-module fast-email
+module github.com/Fonzeca/FastEmail
 
 go 1.17
 

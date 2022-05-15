@@ -1,10 +1,11 @@
 package manager
 
 import (
-	"fast-email/src/model"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/Fonzeca/FastEmail/src/model"
 
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"

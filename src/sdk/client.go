@@ -3,8 +3,9 @@ package sdk
 import (
 	"bytes"
 	"encoding/json"
-	"fast-email/src/model"
 	"net/http"
+
+	"github.com/Fonzeca/FastEmail/src/model"
 )
 
 type FastEmailClient struct {
