@@ -3,6 +3,7 @@ module github.com/Fonzeca/FastEmail
 go 1.17
 
 require (
+	github.com/Fonzeca/FastEmail/src/model v0.0.0-20220516140616-e187cc78a87e
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/gommon v0.3.1 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect
