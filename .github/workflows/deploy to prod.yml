@@ -27,7 +27,7 @@ jobs:
           script: |
             cd ${{ secrets.PATH }}
             cd ./FastEmail
-            git reset --hard && git pull origin
+            git fetch --all && git reset --hard origin/main && git pull origin
       - name: Stop running container
         uses: appleboy/ssh-action@master
         continue-on-error: true
