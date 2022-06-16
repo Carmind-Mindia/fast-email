@@ -53,11 +53,11 @@ jobs:
             cd ${{ secrets.PATH }}
             cd ./FastEmail
             docker compose up -d
-      - name: Connect to internal net
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: docker network connect carmind-net ${{ secrets.DOCKER_NAME}}
+      # - name: Connect to internal net
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.KEY }}
+      #     port: ${{ secrets.PORT }}
+      #     script: docker network connect carmind-net ${{ secrets.DOCKER_NAME}}
