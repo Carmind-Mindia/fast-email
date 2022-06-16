@@ -2,10 +2,6 @@
 
 FROM golang:1.16-alpine
 
-ARG SENDGRID_API_KEY
-
-ENV SENDGRID_API_KEY=${SENDGRID_API_KEY}
-
 WORKDIR /app
 
 COPY go.mod ./
