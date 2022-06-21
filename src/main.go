@@ -18,6 +18,8 @@ func main() {
 
 	//Routeamos
 	e.POST("/sendRecoverPassword", emailApi.SendRecoverPassword)
+	e.POST("/sendDocsCloseToExpire", emailApi.SendDocsCloseToExpire)
+	e.POST("/sendDocsNotCloseToExpire", emailApi.SendDocsNotCloseToExpire)
 
 	//Start!
 	e.Logger.Fatal(e.Start(":5896"))

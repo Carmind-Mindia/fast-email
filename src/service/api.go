@@ -26,3 +26,21 @@ func (api *ApiEmail) SendRecoverPassword(c echo.Context) error {
 
 	return c.NoContent(http.StatusOK)
 }
+
+func (api *ApiEmail) SendDocsCloseToExpire(c echo.Context) error {
+	data := model.ResumenSemanalLleno{}
+	c.Bind(&data)
+
+	api.manager.SendDocsCloseToExpire(data)
+
+	return c.NoContent(http.StatusOK)
+}
+
+func (api *ApiEmail) SendDocsNotCloseToExpire(c echo.Context) error {
+	data := model.ResumenSemanalVacio{}
+	c.Bind(&data)
+
+	api.manager.SendDocsNotCloseToExpire(data)
+
+	return c.NoContent(http.StatusOK)
+}
