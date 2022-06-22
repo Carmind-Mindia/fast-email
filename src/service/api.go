@@ -35,11 +35,11 @@ func (api *ApiEmail) SendDocsCloseToExpire(c echo.Context) error {
 	return c.NoContent(http.StatusOK)
 }
 
-func (api *ApiEmail) sendNoneDocsCloseToExpire(c echo.Context) error {
+func (api *ApiEmail) SendNoneDocsCloseToExpire(c echo.Context) error {
 	data := model.ResumenSemanalVacio{}
 	c.Bind(&data)
 
-	api.manager.sendNoneDocsCloseToExpire(data)
+	api.manager.SendNoneDocsCloseToExpire(data)
 
 	return c.NoContent(http.StatusOK)
 }
