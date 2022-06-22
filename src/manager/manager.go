@@ -51,7 +51,7 @@ func (ma *EmailManager) SendDocsCloseToExpire(data model.ResumenSemanalLleno) {
 
 }
 
-func (ma *EmailManager) SendDocsNotCloseToExpire(data model.ResumenSemanalVacio) {
+func (ma *EmailManager) sendNoneDocsCloseToExpire(data model.ResumenSemanalVacio) {
 	embudo := EmailChannel
 
 	//Creamos el personalization con el to y la data dinamica

@@ -5,7 +5,6 @@ import (
 
 	"github.com/Fonzeca/FastEmail/src/manager"
 	"github.com/Fonzeca/FastEmail/src/model"
-
 	"github.com/labstack/echo"
 )
 
@@ -36,11 +35,11 @@ func (api *ApiEmail) SendDocsCloseToExpire(c echo.Context) error {
 	return c.NoContent(http.StatusOK)
 }
 
-func (api *ApiEmail) SendDocsNotCloseToExpire(c echo.Context) error {
+func (api *ApiEmail) sendNoneDocsCloseToExpire(c echo.Context) error {
 	data := model.ResumenSemanalVacio{}
 	c.Bind(&data)
 
-	api.manager.SendDocsNotCloseToExpire(data)
+	api.manager.sendNoneDocsCloseToExpire(data)
 
 	return c.NoContent(http.StatusOK)
 }
