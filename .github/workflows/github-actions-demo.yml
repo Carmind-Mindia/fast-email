@@ -52,6 +52,7 @@ jobs:
           script: |
             cd ${{ secrets.PATH }}
             cd ./FastEmail
+            docker compose build
             docker compose up -d
       # - name: Connect to internal net
       #   uses: appleboy/ssh-action@master
