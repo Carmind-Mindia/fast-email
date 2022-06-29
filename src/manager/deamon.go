@@ -1,10 +1,12 @@
 package manager
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/Fonzeca/FastEmail/src/model"
@@ -51,9 +53,13 @@ func Deamon() {
 		if err != nil {
 			log.Println(err)
 		} else {
-			fmt.Println(response.StatusCode)
-			fmt.Println(response.Body)
-			fmt.Println(response.Headers)
+			jsonStr, err := json.MarshalIndent(email, "", "\t")
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println("Status code: " + strconv.Itoa(response.StatusCode))
+			fmt.Println("Response body:" + response.Body)
+			fmt.Println("Request body:\n" + string(jsonStr))
 		}
 	}
 }
