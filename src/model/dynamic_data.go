@@ -19,7 +19,13 @@ type ResumenSemanalVacio struct {
 }
 
 type ResumenSemanalLleno struct {
-	Email        string                 `json:"email"`
-	Nombre       string                 `json:"nombre"`
-	Vencimientos map[string]interface{} `json:"vencimientos"`
+	Email        string            `json:"email"`
+	Nombre       string            `json:"nombre"`
+	Vencimientos []VencimientoView `json:"vencimientos"`
+}
+
+type VencimientoView struct {
+	Documento string `json:"documento"`
+	Vehiculo  string `json:"vehiculo"`
+	Days      int    `json:"days"`
 }
