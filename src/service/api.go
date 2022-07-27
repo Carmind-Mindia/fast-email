@@ -43,3 +43,12 @@ func (api *ApiEmail) SendNoneDocsCloseToExpire(c echo.Context) error {
 
 	return c.NoContent(http.StatusOK)
 }
+
+func (api *ApiEmail) SendFailureEvaluacion(c echo.Context) error {
+	data := model.FailureEvaluacion{}
+	c.Bind(&data)
+
+	api.manager.SendFailureEvaluacion(data)
+
+	return c.NoContent(http.StatusOK)
+}

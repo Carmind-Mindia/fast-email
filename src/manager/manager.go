@@ -70,3 +70,29 @@ func (ma *EmailManager) SendNoneDocsCloseToExpire(data model.ResumenSemanalVacio
 	embudo <- email
 
 }
+
+func (ma *EmailManager) SendFailureEvaluacion(data model.FailureEvaluacion) {
+	embudo := EmailChannel
+
+	//Creamos el personalization con el to y la data dinamica
+	failureEvaluacion := map[string]interface{}{
+		"email":              data.Email,
+		"nombre":             data.Nombre,
+		"evaluacionDateTime": data.EvaluacionDateTime,
+		"nombreUsuario":      data.NombreUsuario,
+		"apellidoUsuario":    data.ApellidoUsuario,
+		"nombreVehiculo":     data.NombreVehiculo,
+		"idLog":              data.IdLog,
+		"idVehiculo":         data.IdVehiculo,
+	}
+
+	email := model.EmailSendGrid{
+		TemplateId: "d-c1bb791cbd8c4fdeb2067993f9c14597",
+		EmailTo:    data.Email,
+		Nombre:     data.Nombre,
+		Data:       failureEvaluacion,
+	}
+
+	//Enviamos el email al deamon para que se despache
+	embudo <- email
+}

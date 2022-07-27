@@ -20,6 +20,7 @@ func main() {
 	e.POST("/sendRecoverPassword", emailApi.SendRecoverPassword)
 	e.POST("/sendDocsCloseToExpire", emailApi.SendDocsCloseToExpire)
 	e.POST("/sendNoneDocsCloseToExpire", emailApi.SendNoneDocsCloseToExpire)
+	e.POST("/sendFailureEvaluacion", emailApi.SendFailureEvaluacion)
 
 	//Start!
 	e.Logger.Fatal(e.Start(":5896"))
