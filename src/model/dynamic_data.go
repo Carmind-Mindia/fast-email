@@ -1,7 +1,5 @@
 package model
 
-import "time"
-
 type RecuperarContraseña struct {
 	Nombre string `json:"nombre"`
 	Code   string `json:"code"`
@@ -33,25 +31,12 @@ type VencimientoView struct {
 }
 
 type FailureEvaluacion struct {
-	Email              string     `json:"email"`
-	Nombre             string     `json:"nombre"`
-	EvaluacionDateTime CustomTime `json:"evaluacionDateTime"`
-	NombreUsuario      string     `json:"nombreUsuario"`
-	ApellidoUsuario    string     `json:"apellidoUsuario"`
-	NombreVehiculo     string     `json:"nombreVehiculo"`
-	IdLog              int        `json:"idLog"`
-	IdVehiculo         int        `json:"idVehiculo"`
-}
-
-type CustomTime struct {
-	time.Time
-}
-
-func (t *CustomTime) UnmarshalJSON(b []byte) (err error) {
-	dateTime, err := time.Parse(`"2018-02-27T12:26:30.107"`, string(b))
-	if err != nil {
-		return err
-	}
-	t.Time = dateTime
-	return
+	Email              string `json:"email"`
+	Nombre             string `json:"nombre"`
+	NombreUsuario      string `json:"nombreUsuario"`
+	ApellidoUsuario    string `json:"apellidoUsuario"`
+	NombreVehiculo     string `json:"nombreVehiculo"`
+	IdLog              int    `json:"idLog"`
+	IdVehiculo         int    `json:"idVehiculo"`
+	EvaluacionDateTime []int  `json:"evaluacionDateTime"`
 }

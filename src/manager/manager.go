@@ -76,14 +76,12 @@ func (ma *EmailManager) SendFailureEvaluacion(data model.FailureEvaluacion) {
 
 	//Creamos el personalization con el to y la data dinamica
 	failureEvaluacion := map[string]interface{}{
-		"email":              data.Email,
-		"nombre":             data.Nombre,
-		"evaluacionDateTime": data.EvaluacionDateTime,
 		"nombreUsuario":      data.NombreUsuario,
 		"apellidoUsuario":    data.ApellidoUsuario,
 		"nombreVehiculo":     data.NombreVehiculo,
 		"idLog":              data.IdLog,
 		"idVehiculo":         data.IdVehiculo,
+		"evaluacionDateTime": data.EvaluacionDateTime,
 	}
 
 	email := model.EmailSendGrid{
