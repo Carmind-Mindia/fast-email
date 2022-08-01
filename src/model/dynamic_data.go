@@ -38,5 +38,5 @@ type FailureEvaluacion struct {
 	NombreVehiculo     string `json:"nombreVehiculo"`
 	IdLog              int    `json:"idLog"`
 	IdVehiculo         int    `json:"idVehiculo"`
-	EvaluacionDateTime []int  `json:"evaluacionDateTime"`
+	EvaluacionDateTime string `json:"evaluacionDateTime"`
 }
