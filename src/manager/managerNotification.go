@@ -20,7 +20,7 @@ func (ma *NotificationManager) SendNotificationToCarmind(data model.SimpleNotifi
 	}
 
 	notification := model.CarmindNotification{
-		To:      "d-c1bb791cbd8c4fdeb2067993f9c14597",
+		To:      data.To,
 		Prioity: "HIGH",
 		Data:    simpleNotification,
 	}

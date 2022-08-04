@@ -26,7 +26,7 @@ func DeamonNotification() {
 		//Esperamos un dato del canal
 		data := <-NotificationChannel
 
-		err := processNotification(data.To)
+		err := processNotification(data.To[0])
 		if err != nil {
 			//TODO: logeamos el error
 			fmt.Print(err)
@@ -34,10 +34,10 @@ func DeamonNotification() {
 		}
 
 		client := fcm.NewFCM(os.Getenv("FCM_API_KEY"))
-		token := data.To
+		tokens := data.To
 		response, err := client.Send(fcm.Message{
 			Data:             data.Data,
-			RegistrationIDs:  []string{token},
+			RegistrationIDs:  tokens,
 			ContentAvailable: true,
 			Priority:         fcm.PriorityHigh,
 			Notification: fcm.Notification{
@@ -64,7 +64,7 @@ func DeamonNotification() {
 	}
 }
 
-func processNotification(token string) error {
+func processNotification(tokens string) error {
 	//Obtenemos el tiempo actual
 	now := time.Now()
 
@@ -79,12 +79,12 @@ func processNotification(token string) error {
 	}
 
 	//Verificamos si esta el token al mandar el notification
-	if _, ok := listMapNotification[token]; ok {
+	if _, ok := listMapNotification[tokens]; ok {
 		//Si esta, deberiamos tirar error
 		return errors.New("itentelo mas tarde")
 	} else {
 		//Si no esta, lo dejamos proseguir y guardamos el log
-		listMapNotification[token] = time.Now()
+		listMapNotification[tokens] = time.Now()
 	}
 
 	return nil
