@@ -19,9 +19,9 @@ var (
 	EmailChannel chan model.EmailSendGrid
 )
 
-var listMap = make(map[string]time.Time)
+var listMapEmail = make(map[string]time.Time)
 
-func Deamon() {
+func DeamonEmail() {
 	//Creamos el channel
 	EmailChannel = make(chan model.EmailSendGrid)
 
@@ -71,20 +71,20 @@ func processEmail(email string) error {
 	//Le agregamos un minuto
 	OneMinuteAgo := now.Add(-(time.Second * time.Duration(59)))
 
-	for k, t := range listMap {
+	for k, t := range listMapEmail {
 		//Si el tiempo guardado en los logs, es de hace mas de un minuto, lo borramos
 		if OneMinuteAgo.After(t) {
-			delete(listMap, k)
+			delete(listMapEmail, k)
 		}
 	}
 
 	//Verificamos si esta el correo a mandar el email
-	if _, ok := listMap[email]; ok {
+	if _, ok := listMapEmail[email]; ok {
 		//Si esta, deberiamos tirar error
-		return errors.New("Intentelo mas tarde")
+		return errors.New("intentelo mas tarde")
 	} else {
 		//Si no esta, lo dejamos proseguir y guardamos el log
-		listMap[email] = time.Now()
+		listMapEmail[email] = time.Now()
 	}
 
 	return nil

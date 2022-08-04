@@ -16,4 +16,7 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 )
 
-require github.com/sendgrid/rest v2.6.9+incompatible // indirect
+require (
+	github.com/sendgrid/rest v2.6.9+incompatible // indirect
+	gopkg.in/maddevsio/fcm.v1 v1.0.5 // indirect
+)
