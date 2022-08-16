@@ -6,17 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: Prod
     steps:
-      - name: Clone repo
-        uses: appleboy/ssh-action@master
-        continue-on-error: true
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ${{ secrets.PATH }}
-            git clone https://github.com/Fonzeca/FastEmail.git
       - name: Actualizar repo
         uses: appleboy/ssh-action@master
         with:
@@ -28,18 +17,6 @@ jobs:
             cd ${{ secrets.PATH }}
             cd ./FastEmail
             git fetch --all && git reset --hard origin/main && git pull origin
-      - name: Stop running container
-        uses: appleboy/ssh-action@master
-        continue-on-error: true
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script_stop: false
-          script: |
-            docker container stop ${{ secrets.DOCKER_NAME }}
-            docker container rm ${{ secrets.DOCKER_NAME }}
       - name: Stop running container
         uses: appleboy/ssh-action@master
         continue-on-error: true
@@ -66,11 +43,3 @@ jobs:
             cd ./FastEmail
             docker compose build
             docker compose up -d
-      - name: Connect to internal net
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: docker network connect carmind-net ${{ secrets.DOCKER_NAME}}
