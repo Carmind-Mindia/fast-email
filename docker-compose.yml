@@ -1,9 +1,0 @@
-version: "3.9"
-services:
-  fast-email:
-    build: .
-    env_file:
-      - .env
-    container_name: fast-email
-    ports:
-      - "5896:5896"
