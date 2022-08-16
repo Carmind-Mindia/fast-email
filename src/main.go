@@ -11,6 +11,7 @@ func main() {
 
 	//Corremos el deamon con el channel
 	go manager.DeamonEmail()
+	go manager.DeamonNotification()
 
 	//Creamos la api
 	emailApi := service.NewApiEmail()

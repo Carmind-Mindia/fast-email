@@ -1,6 +1,8 @@
 package manager
 
-import "github.com/Fonzeca/FastEmail/src/model"
+import (
+	"github.com/Fonzeca/FastEmail/src/model"
+)
 
 type NotificationManager struct {
 }
@@ -14,7 +16,6 @@ func (ma *NotificationManager) SendNotificationToCarmind(data model.SimpleNotifi
 
 	//Creamos el personalization con el to y la data dinamica
 	simpleNotification := map[string]interface{}{
-		"To":      data.To,
 		"Title":   data.Title,
 		"Message": data.Message,
 	}
