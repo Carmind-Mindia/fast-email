@@ -26,7 +26,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${{ secrets.PATH }}
-            cd ./FastEmail
             git fetch --all && git reset --hard origin/main && git pull origin
       - name: Stop running container
         uses: appleboy/ssh-action@master
@@ -39,7 +38,6 @@ jobs:
           script_stop: false
           script: |
             cd ${{ secrets.PATH }}
-            cd ./FastEmail
             docker compose stop fast-email
             docker compose rm -f
       - name: Run docker compose
@@ -51,7 +49,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${{ secrets.PATH }}
-            cd ./FastEmail
             docker compose build fast-email
             docker compose up -d
       # - name: Connect to internal net
