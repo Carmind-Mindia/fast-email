@@ -37,11 +37,13 @@ func DeamonNotification() {
 		//Esperamos un dato del canal
 		data := <-NotificationChannel
 
-		err := processNotification(data.To[0])
-		if err != nil {
-			//TODO: logeamos el error
-			fmt.Print(err)
-			continue
+		for _, token := range data.To {
+			err := processNotification(token)
+			if err != nil {
+				//TODO: logeamos el error
+				fmt.Print(err)
+				continue
+			}
 		}
 
 		for _, token := range data.To {
