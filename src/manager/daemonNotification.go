@@ -1,6 +1,7 @@
 package manager
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"log"
@@ -8,7 +9,8 @@ import (
 	"time"
 
 	"github.com/Fonzeca/FastEmail/src/model"
-	"gopkg.in/maddevsio/fcm.v1"
+	"google.golang.org/api/fcm/v1"
+	"google.golang.org/api/option"
 )
 
 var (
@@ -21,45 +23,45 @@ func DeamonNotification() {
 	//Creamos el channel
 	NotificationChannel = make(chan model.CarmindNotification)
 
+	ctx := context.Background()
+
+	opt := option.WithCredentialsFile(os.Getenv("FIREBASE_CREDENTIAL_FILE"))
+	fcmService, err := fcm.NewService(ctx, opt)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	for {
 
 		//Esperamos un dato del canal
 		data := <-NotificationChannel
 
-		err := processNotification(data.To[0])
-		if err != nil {
-			//TODO: logeamos el error
-			fmt.Print(err)
-			continue
-		}
-
-		client := fcm.NewFCM(os.Getenv("FCM_API_KEY"))
-		tokens := data.To
-		response, err := client.Send(fcm.Message{
-			Data:             data.Data,
-			RegistrationIDs:  tokens,
-			ContentAvailable: true,
-			Priority:         fcm.PriorityHigh,
-			Notification: fcm.Notification{
-				Title: "New notification from Carmind",
-				Body:  "You have a new notification!",
-			},
-		})
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		if err != nil {
-			log.Println(err)
-		} else {
+		for _, token := range data.To {
+			err := processNotification(token)
 			if err != nil {
-				fmt.Println(err)
+				//TODO: logeamos el error
+				fmt.Print(err)
+				continue
 			}
-			fmt.Println("Status Code   :", response.StatusCode)
-			fmt.Println("Success       :", response.Success)
-			fmt.Println("Fail          :", response.Fail)
-			fmt.Println("Canonical_ids :", response.CanonicalIDs)
-			fmt.Println("Topic MsgId   :", response.MsgID)
+		}
+
+		for _, token := range data.To {
+			sendMessageRequest := &fcm.SendMessageRequest{
+				Message: &fcm.Message{
+					Token: token,
+					Notification: &fcm.Notification{
+						Title: data.Data["Title"].(string),
+						Body:  data.Data["Message"].(string),
+					},
+				},
+			}
+			projectMessage := fcmService.Projects.Messages.Send("projects/carmind-46f12", sendMessageRequest)
+			_, err := projectMessage.Do()
+			if err != nil {
+				fmt.Print(err.Error())
+				continue
+			}
 		}
 	}
 }
