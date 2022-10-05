@@ -5,11 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"strconv"
 	"time"
 
 	"github.com/Fonzeca/FastEmail/src/model"
+	"github.com/spf13/viper"
 
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
@@ -48,7 +48,7 @@ func DeamonEmail() {
 		email.SetFrom(from)
 		email.AddPersonalizations(pers)
 
-		client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
+		client := sendgrid.NewSendClient(viper.GetString("SENDGRID_API_KEY"))
 		response, err := client.Send(email)
 		if err != nil {
 			log.Println(err)

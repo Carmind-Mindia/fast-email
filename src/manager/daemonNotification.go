@@ -5,10 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/Fonzeca/FastEmail/src/model"
+	"github.com/spf13/viper"
 	"google.golang.org/api/fcm/v1"
 	"google.golang.org/api/option"
 )
@@ -25,7 +25,7 @@ func DeamonNotification() {
 
 	ctx := context.Background()
 
-	opt := option.WithCredentialsFile(os.Getenv("FIREBASE_CREDENTIAL_FILE"))
+	opt := option.WithCredentialsFile(viper.GetString("FIREBASE_CREDENTIAL_FILE"))
 	fcmService, err := fcm.NewService(ctx, opt)
 
 	if err != nil {
