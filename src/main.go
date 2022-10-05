@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	InitConfig()
 	e := echo.New()
 
 	//Corremos el deamon con el channel
