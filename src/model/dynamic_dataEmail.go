@@ -40,3 +40,14 @@ type FailureEvaluacion struct {
 	IdVehiculo         int    `json:"idVehiculo"`
 	EvaluacionDateTime string `json:"evaluacionDateTime"`
 }
+
+type ZoneNotification struct {
+	Imei         string   `json:"imei"`
+	ZoneName     string   `json:"zone_name"`
+	ZoneID       int      `json:"zone_id"`
+	EventType    string   `json:"event_type"`
+	VehiculoId   int      `json:"vehiculo_id"`
+	VehiculoName string   `json:"vehiculo_nam"`
+	Emails       []string `json:"emails"`
+	FCMTokens    []string `json:"fcmtokens"`
+}

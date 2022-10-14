@@ -40,8 +40,7 @@ func DeamonNotification() {
 		for _, token := range data.To {
 			err := processNotification(token)
 			if err != nil {
-				//TODO: logeamos el error
-				fmt.Print(err)
+				log.Println(err)
 				continue
 			}
 		}
@@ -66,6 +65,7 @@ func DeamonNotification() {
 	}
 }
 
+//Funcion que detecta si le estamos haciendo spam al usuario
 func processNotification(tokens string) error {
 	//Obtenemos el tiempo actual
 	now := time.Now()

@@ -11,8 +11,9 @@ import (
 )
 
 type RabbitMqEmail struct {
-	inputs  <-chan amqp.Delivery
-	manager manager.EmailManager
+	inputs              <-chan amqp.Delivery
+	manager             manager.EmailManager
+	notificationManager manager.NotificationManager
 }
 
 func NewRabbitMqEmail(channel *amqp.Channel) RabbitMqEmail {
@@ -41,7 +42,10 @@ func NewRabbitMqEmail(channel *amqp.Channel) RabbitMqEmail {
 		log.Println(err)
 	}
 
-	instance := RabbitMqEmail{inputs: messages}
+	instance := RabbitMqEmail{
+		inputs:              messages,
+		notificationManager: manager.NewNotificationManager(),
+	}
 	go instance.Run()
 	return instance
 }
@@ -86,6 +90,22 @@ func (m *RabbitMqEmail) Run() {
 				}
 				m.manager.SendNoneDocsCloseToExpire(pojoVacio)
 			}
+			break
+		case "notification.zone.fastemail.ready":
+			pojo := model.ZoneNotification{}
+			err := json.Unmarshal(message.Body, &pojo)
+			if err != nil {
+				fmt.Println(err)
+				break
+			}
+
+			notification := model.SimpleNotification{
+				Title:   "Prueba",
+				Message: fmt.Sprintf("El auto %s salio o entro de la zona %s", pojo.VehiculoName, pojo.ZoneName),
+				To:      pojo.FCMTokens,
+			}
+
+			m.notificationManager.SendNotificationToCarmind(notification)
 			break
 		}
 		// For example, show received message in a console.
