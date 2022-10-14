@@ -17,7 +17,7 @@ type RabbitMqEmail struct {
 
 func NewRabbitMqEmail(channel *amqp.Channel) RabbitMqEmail {
 
-	q, err := channel.QueueDeclare("notifications", false, false, false, false, nil)
+	q, err := channel.QueueDeclare("notifications", true, false, false, false, nil)
 	if err != nil {
 		panic(err)
 	}
