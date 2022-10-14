@@ -17,7 +17,7 @@ type RabbitMqEmail struct {
 
 func NewRabbitMqEmail(channel *amqp.Channel) RabbitMqEmail {
 
-	q, err := channel.QueueDeclare("notifications", false, true, false, false, nil)
+	q, err := channel.QueueDeclare("notifications", false, false, false, false, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -59,8 +59,33 @@ func (m *RabbitMqEmail) Run() {
 			}
 			m.manager.SendFailureEvaluacion(pojo)
 			break
-		case "notification..ready":
+		case "notification.recover.password.ready":
+			pojo := model.RecuperarContraseña{}
+			err := json.Unmarshal(message.Body, &pojo)
+			if err != nil {
+				fmt.Println(err)
+				break
+			}
+			m.manager.SendRecoverPassword(pojo)
+			break
+		case "notification.weekly.email.ready":
+			pojo := model.ResumenSemanalLleno{}
+			err := json.Unmarshal(message.Body, &pojo)
+			if err != nil {
+				fmt.Println(err)
+				break
+			}
 
+			//Verificamos si es con vencimientos o no
+			if pojo.Vencimientos != nil && len(pojo.Vencimientos) > 0 {
+				m.manager.SendDocsCloseToExpire(pojo)
+			} else {
+				pojoVacio := model.ResumenSemanalVacio{
+					Email:  pojo.Email,
+					Nombre: pojo.Nombre,
+				}
+				m.manager.SendNoneDocsCloseToExpire(pojoVacio)
+			}
 			break
 		}
 		// For example, show received message in a console.
