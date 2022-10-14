@@ -23,7 +23,7 @@ func NewRabbitMqEmail(channel *amqp.Channel) RabbitMqEmail {
 		panic(err)
 	}
 
-	err = channel.QueueBind(q.Name, "notification.*.ready", "carmind", false, nil)
+	err = channel.QueueBind(q.Name, "notification.#.ready", "carmind", false, nil)
 	if err != nil {
 		panic(err)
 	}
