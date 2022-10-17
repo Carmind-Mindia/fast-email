@@ -99,9 +99,18 @@ func (m *RabbitMqEmail) Run() {
 				break
 			}
 
+			var message string = ""
+			if pojo.EventType == "entro" {
+				message = fmt.Sprintf("El vehículo '%s' entro de la zona '%s'", pojo.VehiculoName, pojo.ZoneName)
+			} else if pojo.EventType == "salio" {
+				message = fmt.Sprintf("El vehículo '%s' salio de la zona '%s'", pojo.VehiculoName, pojo.ZoneName)
+			} else {
+				message = "Error, event type desconocido"
+			}
+
 			notification := model.SimpleNotification{
-				Title:   "Prueba",
-				Message: fmt.Sprintf("El auto %s salio o entro de la zona %s", pojo.VehiculoName, pojo.ZoneName),
+				Title:   "Aviso de zona",
+				Message: message,
 				To:      pojo.FCMTokens,
 			}
 
