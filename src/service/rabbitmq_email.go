@@ -100,9 +100,9 @@ func (m *RabbitMqEmail) Run() {
 			}
 
 			var message string = ""
-			if pojo.EventType == "entro" {
+			if pojo.EventType == "entra" {
 				message = fmt.Sprintf("El vehículo '%s' entro de la zona '%s'", pojo.VehiculoName, pojo.ZoneName)
-			} else if pojo.EventType == "salio" {
+			} else if pojo.EventType == "sale" {
 				message = fmt.Sprintf("El vehículo '%s' salio de la zona '%s'", pojo.VehiculoName, pojo.ZoneName)
 			} else {
 				message = "Error, event type desconocido"
