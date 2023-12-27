@@ -12,6 +12,6 @@ COPY . .
 
 RUN go build -o /exec ./src/
 
-EXPOSE 5896
+EXPOSE 80
 
 CMD [ "/exec" ]

@@ -1,4 +1,4 @@
-module github.com/Fonzeca/FastEmail
+module github.com/Carmind-Mindia/fast-email
 
 go 1.17
 
@@ -7,7 +7,6 @@ require (
 	github.com/labstack/gommon v0.3.1 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
-	github.com/sendgrid/sendgrid-go v3.11.1+incompatible
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.1 // indirect
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
@@ -33,7 +32,6 @@ require (
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/rabbitmq/amqp091-go v1.5.0 // indirect
-	github.com/sendgrid/rest v2.6.9+incompatible // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect

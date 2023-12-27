@@ -1,7 +1,7 @@
 package manager
 
 import (
-	"github.com/Fonzeca/FastEmail/src/model"
+	"github.com/Carmind-Mindia/fast-email/src/model"
 )
 
 type NotificationManager struct {

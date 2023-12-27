@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Fonzeca/FastEmail/src/manager"
-	"github.com/Fonzeca/FastEmail/src/model"
+	"github.com/Carmind-Mindia/fast-email/src/manager"
+	"github.com/Carmind-Mindia/fast-email/src/model"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -54,15 +54,6 @@ func (m *RabbitMqEmail) Run() {
 	for message := range m.inputs {
 
 		switch message.RoutingKey {
-		case "notification.failure.ready":
-			pojo := model.FailureEvaluacion{}
-			err := json.Unmarshal(message.Body, &pojo)
-			if err != nil {
-				fmt.Println(err)
-				break
-			}
-			m.manager.SendFailureEvaluacion(pojo)
-			break
 		case "notification.recover.password.ready":
 			pojo := model.RecuperarContraseña{}
 			err := json.Unmarshal(message.Body, &pojo)
@@ -71,25 +62,6 @@ func (m *RabbitMqEmail) Run() {
 				break
 			}
 			m.manager.SendRecoverPassword(pojo)
-			break
-		case "notification.weekly.email.ready":
-			pojo := model.ResumenSemanalLleno{}
-			err := json.Unmarshal(message.Body, &pojo)
-			if err != nil {
-				fmt.Println(err)
-				break
-			}
-
-			//Verificamos si es con vencimientos o no
-			if pojo.Vencimientos != nil && len(pojo.Vencimientos) > 0 {
-				m.manager.SendDocsCloseToExpire(pojo)
-			} else {
-				pojoVacio := model.ResumenSemanalVacio{
-					Email:  pojo.Email,
-					Nombre: pojo.Nombre,
-				}
-				m.manager.SendNoneDocsCloseToExpire(pojoVacio)
-			}
 			break
 		case "notification.zone.fastemail.ready":
 			pojo := model.ZoneNotification{}
