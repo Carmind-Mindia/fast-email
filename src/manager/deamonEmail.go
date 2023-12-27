@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Fonzeca/FastEmail/src/model"
+	"github.com/Carmind-Mindia/fast-email/src/model"
 
 	"bytes"
 	"net/http"

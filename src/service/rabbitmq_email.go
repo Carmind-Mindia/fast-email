@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Fonzeca/FastEmail/src/manager"
-	"github.com/Fonzeca/FastEmail/src/model"
+	"github.com/Carmind-Mindia/fast-email/src/manager"
+	"github.com/Carmind-Mindia/fast-email/src/model"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 

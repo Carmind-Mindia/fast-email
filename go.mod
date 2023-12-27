@@ -1,4 +1,4 @@
-module github.com/Fonzeca/FastEmail
+module github.com/Carmind-Mindia/fast-email
 
 go 1.17
 

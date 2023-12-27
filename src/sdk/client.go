@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/Fonzeca/FastEmail/src/model"
+	"github.com/Carmind-Mindia/fast-email/src/model"
 )
 
 type FastEmailClient struct {
@@ -16,7 +16,7 @@ func NewEmailClient(config Config) FastEmailClient {
 	return FastEmailClient{config: &config}
 }
 
-func (cli *FastEmailClient) SendRecoverPassword(email string, nombre string, code string) error {
+func (cli *FastEmailClient) SendRecoverPassword(email string, code string) error {
 	dataToSend := model.RecuperarContraseña{Code: code, Email: email}
 
 	postbody, _ := json.Marshal(dataToSend)

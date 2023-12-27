@@ -1,6 +1,6 @@
 package manager
 
-import "github.com/Fonzeca/FastEmail/src/model"
+import "github.com/Carmind-Mindia/fast-email/src/model"
 
 type EmailManager struct {
 }

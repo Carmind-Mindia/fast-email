@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/Fonzeca/FastEmail/src/model"
+	"github.com/Carmind-Mindia/fast-email/src/model"
 	"github.com/spf13/viper"
 	"google.golang.org/api/fcm/v1"
 	"google.golang.org/api/option"
@@ -65,7 +65,7 @@ func DeamonNotification() {
 	}
 }
 
-//Funcion que detecta si le estamos haciendo spam al usuario
+// Funcion que detecta si le estamos haciendo spam al usuario
 func processNotification(tokens string) error {
 	//Obtenemos el tiempo actual
 	now := time.Now()
