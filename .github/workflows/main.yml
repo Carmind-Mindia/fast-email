@@ -10,7 +10,8 @@ jobs:
     uses: ./.github/workflows/deployment.yml
     secrets: inherit
     with:
-      main_tag: $GITHUB_REF_NAME
+      # main_tag: $GITHUB_REF_NAME
+      main_tag: dev
 
   reload_compose:
     needs: deployment
