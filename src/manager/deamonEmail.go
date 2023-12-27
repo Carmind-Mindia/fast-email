@@ -4,26 +4,23 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
-	"strconv"
 	"time"
 
 	"github.com/Fonzeca/FastEmail/src/model"
-	"github.com/spf13/viper"
 
-	"github.com/sendgrid/sendgrid-go"
-	"github.com/sendgrid/sendgrid-go/helpers/mail"
+	"bytes"
+	"net/http"
 )
 
 var (
-	EmailChannel chan model.EmailSendGrid
+	EmailChannel chan model.EmailTemplate
 )
 
 var listMapEmail = make(map[string]time.Time)
 
 func DeamonEmail() {
 	//Creamos el channel
-	EmailChannel = make(chan model.EmailSendGrid)
+	EmailChannel = make(chan model.EmailTemplate)
 
 	for {
 
@@ -37,29 +34,43 @@ func DeamonEmail() {
 			continue
 		}
 
-		from := mail.NewEmail("Carmen de CarMind", "ayuda@mindiasoft.com")
+		var body model.EnvialoSimpleApiBody
+		body.TemplateId = data.TemplateId
+		body.To = []string{data.EmailTo}
+		body.From = "ayuda@mindia.com.ar"
+		body.Subject = "Recupero de contraseña"
+		body.Substitutions = data.Data
 
-		pers := mail.NewPersonalization()
-		pers.AddTos(mail.NewEmail(data.Nombre, data.EmailTo))
-		pers.DynamicTemplateData = data.Data
-
-		email := mail.NewV3Mail()
-		email.SetTemplateID(data.TemplateId)
-		email.SetFrom(from)
-		email.AddPersonalizations(pers)
-
-		client := sendgrid.NewSendClient(viper.GetString("SENDGRID_API_KEY"))
-		response, err := client.Send(email)
+		// Convertir los datos de la solicitud a JSON
+		jsonData, err := json.Marshal(body)
 		if err != nil {
-			log.Println(err)
-		} else {
-			jsonStr, err := json.MarshalIndent(email, "", "\t")
-			if err != nil {
-				fmt.Println(err)
-			}
-			fmt.Println("Status code: " + strconv.Itoa(response.StatusCode))
-			fmt.Println("Response body:" + response.Body)
-			fmt.Println("Request body:\n" + string(jsonStr))
+			fmt.Println(err)
+			continue
+		}
+
+		// Crear una nueva solicitud POST
+		req, err := http.NewRequest("POST", "https://api.envialosimple.email/api/v1/mail/send", bytes.NewBuffer(jsonData))
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+
+		// Establecer el encabezado Content-Type a application/json
+		req.Header.Set("Content-Type", "application/json")
+
+		// Realizar la llamada a la API
+		client := &http.Client{}
+		resp, err := client.Do(req)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		defer resp.Body.Close()
+
+		// Comprobar el código de estado de la respuesta
+		if resp.StatusCode != http.StatusOK {
+			fmt.Println(fmt.Errorf("API call failed with status code: %d", resp.StatusCode))
+			continue
 		}
 	}
 }

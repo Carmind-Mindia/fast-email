@@ -17,7 +17,7 @@ func NewEmailClient(config Config) FastEmailClient {
 }
 
 func (cli *FastEmailClient) SendRecoverPassword(email string, nombre string, code string) error {
-	dataToSend := model.RecuperarContraseña{Nombre: nombre, Code: code, Email: email}
+	dataToSend := model.RecuperarContraseña{Code: code, Email: email}
 
 	postbody, _ := json.Marshal(dataToSend)
 

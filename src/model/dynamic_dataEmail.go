@@ -1,16 +1,22 @@
 package model
 
 type RecuperarContraseña struct {
-	Nombre string `json:"nombre"`
-	Code   string `json:"code"`
-	Email  string `json:"email"`
+	Code  string `json:"code"`
+	Email string `json:"email"`
 }
 
-type EmailSendGrid struct {
+type EmailTemplate struct {
 	TemplateId string
 	EmailTo    string
-	Nombre     string
 	Data       map[string]interface{}
+}
+
+type EnvialoSimpleApiBody struct {
+	From          string                 `json:"from"`
+	To            []string               `json:"to"`
+	TemplateId    string                 `json:"templateID"`
+	Subject       string                 `json:"subject"`
+	Substitutions map[string]interface{} `json:"substitutions"`
 }
 
 type ResumenSemanalVacio struct {
