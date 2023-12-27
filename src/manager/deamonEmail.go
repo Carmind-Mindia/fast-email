@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/Carmind-Mindia/fast-email/src/model"
@@ -19,17 +20,19 @@ var (
 var listMapEmail = make(map[string]time.Time)
 
 func DeamonEmail() {
-	//Creamos el channel
+	// Obtener el bearer token del archivo .env
+	bearerToken := os.Getenv("BEARER_TOKEN")
+
+	// Creamos el channel
 	EmailChannel = make(chan model.EmailTemplate)
 
 	for {
-
-		//Esperamos un dato del canal
+		// Esperamos un dato del canal
 		data := <-EmailChannel
 
 		err := processEmail(data.EmailTo)
 		if err != nil {
-			//TODO: logeamos el error
+			// TODO: logeamos el error
 			fmt.Print(err)
 			continue
 		}
@@ -57,6 +60,9 @@ func DeamonEmail() {
 
 		// Establecer el encabezado Content-Type a application/json
 		req.Header.Set("Content-Type", "application/json")
+
+		// Agregar el bearer token al encabezado Authorization
+		req.Header.Set("Authorization", "Bearer "+bearerToken)
 
 		// Realizar la llamada a la API
 		client := &http.Client{}
