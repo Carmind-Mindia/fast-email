@@ -3,7 +3,7 @@ services:
     carmind-front:
       image: fonzeca/fast-email:dev
       volumes:
-        - ./.env:/app/.env
+        - ${PWD}/.env:/app/.env
       networks:
         - carmind
 

@@ -10,8 +10,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o ./exec ./src/
+RUN go build -o /app/exec ./src/
 
 EXPOSE 80
 
-CMD [ "./exec" ]
+CMD [ "/app/exec" ]
