@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/Carmind-Mindia/fast-email/v2/src/model"
+	"github.com/Carmind-Mindia/fast-email/v3/src/model"
 )
 
 type FastEmailClient struct {

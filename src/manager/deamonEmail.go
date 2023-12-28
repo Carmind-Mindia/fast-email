@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/Carmind-Mindia/fast-email/v2/src/model"
+	"github.com/Carmind-Mindia/fast-email/v3/src/model"
 
 	"bytes"
 	"net/http"

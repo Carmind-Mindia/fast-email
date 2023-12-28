@@ -1,6 +1,6 @@
 package manager
 
-import "github.com/Carmind-Mindia/fast-email/v2/src/model"
+import "github.com/Carmind-Mindia/fast-email/v3/src/model"
 
 type EmailManager struct {
 }
