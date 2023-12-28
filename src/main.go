@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/Carmind-Mindia/fast-email/src/manager"
-	"github.com/Carmind-Mindia/fast-email/src/service"
+	"github.com/Carmind-Mindia/fast-email/v2/src/manager"
+	"github.com/Carmind-Mindia/fast-email/v2/src/service"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 )

@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/Carmind-Mindia/fast-email/src/model"
+	"github.com/Carmind-Mindia/fast-email/v2/src/model"
 	"github.com/spf13/viper"
 	"google.golang.org/api/fcm/v1"
 	"google.golang.org/api/option"

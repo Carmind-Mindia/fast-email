@@ -1,4 +1,4 @@
-module github.com/Carmind-Mindia/fast-email
+module github.com/Carmind-Mindia/fast-email/v2
 
 go 1.17
 

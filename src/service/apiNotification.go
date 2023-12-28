@@ -3,8 +3,8 @@ package service
 import (
 	"net/http"
 
-	"github.com/Carmind-Mindia/fast-email/src/manager"
-	"github.com/Carmind-Mindia/fast-email/src/model"
+	"github.com/Carmind-Mindia/fast-email/v2/src/manager"
+	"github.com/Carmind-Mindia/fast-email/v2/src/model"
 	"github.com/labstack/echo"
 )
 
